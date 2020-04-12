@@ -36,7 +36,7 @@ public class IosStoreApp extends Configuration {
 
         Path outPutJob = new Path(jobArgs[1]);
 
-        Job job = Job.getInstance(conf, "IosStoreApp");
+        Job job = Job.getInstance(conf, "1 job - Get AVG for categories");
         job.setJarByClass(IosStoreApp.class);
         job.setMapperClass(IosStoreCategoryPriceMapper.class);
         job.setPartitionerClass(IosStoreCategoryPricePartitioner.class);
@@ -59,7 +59,7 @@ public class IosStoreApp extends Configuration {
         Path outPutSecJob = new Path(jobArgs[2]);
 
         Configuration conf2 = new Configuration();
-        Job secJob = Job.getInstance(conf2, "IosStoreApps");
+        Job secJob = Job.getInstance(conf2, "2 job - Get Language and price from CSV");
         secJob.setJarByClass(IosStoreApp.class);
         secJob.setMapperClass(IosStoreAppsMapper.class);
         secJob.setReducerClass(IosStoreAppsReducer.class);
@@ -78,7 +78,7 @@ public class IosStoreApp extends Configuration {
         }
 
         Configuration conf3 = new Configuration();
-        Job thrJob = Job.getInstance(conf3, "IosStoreAppLang");
+        Job thrJob = Job.getInstance(conf3, "3 job - combines the output of the first and second job into one file");
         thrJob.setJarByClass(IosStoreApp.class);
         thrJob.setMapperClass(IosStoreLangsMapper.class);
         thrJob.setReducerClass(IosStoreLangsReducer.class);
@@ -99,7 +99,7 @@ public class IosStoreApp extends Configuration {
         }
 
         Configuration conf4 = new Configuration();
-        Job fourJob = Job.getInstance(conf4, "IosStoreAppFinalLang");
+        Job fourJob = Job.getInstance(conf4, "4 job - removes records whose price for a given category is lower than the average");
         fourJob.setJarByClass(IosStoreApp.class);
         fourJob.setMapperClass(IosStoreFinalLangsMapper.class);
         fourJob.setReducerClass(IosStoreFinalLangsReducer.class);
@@ -118,7 +118,7 @@ public class IosStoreApp extends Configuration {
         }
 
         Configuration conf5 = new Configuration();
-        Job fivJob = Job.getInstance(conf5, "Get 3 Lang for cat");
+        Job fivJob = Job.getInstance(conf5, "5 job - Get 3 Lang for cat");
         fivJob.setJarByClass(IosStoreApp.class);
         fivJob.setMapperClass(IosStoreGetThreeLangsMapper.class);
         fivJob.setReducerClass(IosStoreGetThreeLangsReducer.class);
